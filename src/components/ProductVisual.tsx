@@ -218,6 +218,45 @@ export const ProductVisual = ({ serviceId, category, size = 'md', className = ''
       };
     }
 
+    if (sId.includes('enterprise') || sId.includes('org')) {
+      return {
+        icon: ShieldCheck,
+        bgGradient: 'from-[#0969DA]/10 via-[#0969DA]/5 to-transparent',
+        borderColor: 'border-[#0969DA]/30',
+        badgeBg: 'bg-[#DDF4FF] text-[#0969DA]',
+        iconColor: 'text-[#0969DA]',
+        label: 'Enterprise Infrastructure',
+        sublabel: 'Organization Owner',
+        accentTag: 'Enterprise Tier'
+      };
+    }
+
+    if (sId.includes('usa') || sId.includes('uk')) {
+      return {
+        icon: Terminal,
+        bgGradient: 'from-[#0969DA]/10 via-[#0969DA]/5 to-transparent',
+        borderColor: 'border-[#0969DA]/30',
+        badgeBg: 'bg-[#DDF4FF] text-[#0969DA]',
+        iconColor: 'text-[#0969DA]',
+        label: 'Geo-Targeted Profile',
+        sublabel: 'USA / UK Residential IP',
+        accentTag: 'Geo Verified'
+      };
+    }
+
+    if (sId.includes('verified') || sId.includes('developer')) {
+      return {
+        icon: ShieldCheck,
+        bgGradient: 'from-[#1A7F37]/10 via-[#1A7F37]/5 to-transparent',
+        borderColor: 'border-[#1A7F37]/30',
+        badgeBg: 'bg-[#E1F0DA] text-[#1A7F37]',
+        iconColor: 'text-[#1A7F37]',
+        label: 'Verified Developer',
+        sublabel: 'High-Trust Clearance',
+        accentTag: 'Developer Verified'
+      };
+    }
+
     // Default New Account / General
     return {
       icon: Terminal,
