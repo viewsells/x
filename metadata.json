@@ -1,0 +1,6 @@
+{
+  "name": "Buy GitHub Accounts",
+  "description": "Professional GitHub account and promotion services platform with transparent pricing, instant support, and crypto payment support.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
