@@ -52,14 +52,28 @@ export interface ServiceItem {
   relatedBlogSlugs: string[];
 }
 
+export interface BlogPostFAQ {
+  question: string;
+  answer: string;
+}
+
+export interface BlogPostComparisonTable {
+  headers: string[];
+  rows: string[][];
+}
+
 export interface BlogPost {
   slug: string;
   title: string;
   metaTitle: string;
   metaDescription: string;
-  category: 'Accounts & History' | 'Promotion & Growth' | 'Security & Best Practices' | 'Developer Guides';
+  category: 'GitHub Accounts' | 'GitHub Stars' | 'GitHub Followers' | 'GitHub Forks' | 'GitHub Watchers' | 'GitHub Repositories' | 'GitHub Commits' | 'GitHub Projects' | 'GitHub Achievements' | 'GitHub Security' | 'GitHub Guides' | 'Accounts & History' | 'Promotion & Growth' | 'Security & Best Practices' | 'Developer Guides';
   publishedDate: string;
+  updatedDate?: string;
   readTime: string;
+  primaryKeyword?: string;
+  secondaryKeywords?: string[];
+  searchIntent?: 'Informational' | 'Commercial Investigation' | 'Technical Guide';
   summary: string;
   keyTakeaways: string[];
   contentSections: {
@@ -68,7 +82,10 @@ export interface BlogPost {
     bulletPoints?: string[];
     callout?: string;
   }[];
+  comparisonTable?: BlogPostComparisonTable;
+  faqs?: BlogPostFAQ[];
   relatedServiceIds: string[];
+  relatedBlogSlugs?: string[];
   tags: string[];
 }
 

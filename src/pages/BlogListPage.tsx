@@ -43,10 +43,17 @@ export const BlogListPage = () => {
 
   const categories = [
     'All', 
-    'Accounts & History', 
-    'Promotion & Growth', 
-    'Security & Best Practices', 
-    'Developer Guides'
+    'GitHub Accounts',
+    'GitHub Stars',
+    'GitHub Followers',
+    'GitHub Forks',
+    'GitHub Watchers',
+    'GitHub Repositories',
+    'GitHub Commits',
+    'GitHub Projects',
+    'GitHub Achievements',
+    'GitHub Security',
+    'GitHub Guides'
   ];
 
   // Extract all unique tags
@@ -134,27 +141,38 @@ export const BlogListPage = () => {
 
   const getCategoryMeta = (cat: string) => {
     switch (cat) {
+      case 'GitHub Accounts':
       case 'Accounts & History':
         return {
           icon: Terminal,
           pillClass: 'bg-[#DDF4FF] text-[#0969DA] border-[#54AEFF]/30',
           accentColor: '#0969DA',
-          badgeLabel: 'Architecture & Aging'
+          badgeLabel: 'Accounts & History'
         };
+      case 'GitHub Stars':
+      case 'GitHub Followers':
+      case 'GitHub Forks':
+      case 'GitHub Watchers':
       case 'Promotion & Growth':
         return {
           icon: TrendingUp,
           pillClass: 'bg-[#FFF8C5] text-[#9A6700] border-[#D29922]/30',
           accentColor: '#D29922',
-          badgeLabel: 'Growth & Stars'
+          badgeLabel: 'Metrics & Growth'
         };
+      case 'GitHub Security':
       case 'Security & Best Practices':
         return {
           icon: ShieldCheck,
           pillClass: 'bg-[#E1F0DA] text-[#1A7F37] border-[#2DA44E]/30',
           accentColor: '#1A7F37',
-          badgeLabel: 'Security & 2FA'
+          badgeLabel: 'Security & Hardening'
         };
+      case 'GitHub Repositories':
+      case 'GitHub Commits':
+      case 'GitHub Projects':
+      case 'GitHub Achievements':
+      case 'GitHub Guides':
       default:
         return {
           icon: BookOpen,

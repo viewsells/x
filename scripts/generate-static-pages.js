@@ -48,6 +48,31 @@ const promotionSlugs = [
 
 // List of all blog slugs
 const blogSlugs = [
+  // Cluster 1: GitHub Accounts
+  'what-is-a-github-account-how-github-works',
+  'what-are-aged-github-accounts-how-they-differ-from-new-ones',
+  'active-vs-inactive-github-accounts-what-makes-an-account-active',
+  'what-is-a-github-student-developer-pack-account',
+  'how-to-manage-multiple-github-accounts',
+  'things-to-consider-when-choosing-a-github-account',
+  // Cluster 2: GitHub Stars
+  'what-are-github-stars-and-what-do-they-mean',
+  'github-stars-vs-followers-whats-the-difference',
+  'how-github-stars-work-for-open-source-projects',
+  'understanding-github-repository-popularity',
+  // Cluster 3-5: Followers, Forks, Watchers, Repos
+  'what-are-github-followers-and-how-they-work',
+  'what-makes-a-github-profile-look-active',
+  'what-are-github-forks-and-how-do-they-work',
+  'what-are-github-watchers-and-notifications',
+  'what-is-a-github-repository-complete-guide',
+  // Cluster 6-12: Commits, Projects, Badges, Security, Optimization
+  'what-are-github-commits-and-how-they-work',
+  'what-are-github-projects-and-boards',
+  'what-are-github-achievements-and-badges',
+  'github-account-security-best-practices-guide',
+  'github-profile-optimization-guide-complete',
+  // Core previous technical guides
   'what-are-github-accounts-how-they-work',
   'new-vs-aged-github-accounts-difference',
   'understanding-github-account-history',

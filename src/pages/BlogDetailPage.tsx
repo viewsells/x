@@ -23,7 +23,10 @@ import {
   Terminal,
   ExternalLink,
   MessageSquare,
-  ListOrdered
+  ListOrdered,
+  HelpCircle,
+  Table,
+  ChevronDown
 } from 'lucide-react';
 import { navigateTo } from '../utils/router';
 
@@ -124,24 +127,35 @@ export const BlogDetailPage = ({ post, onOpenOrderModal }: BlogDetailPageProps) 
 
   const getCategoryTheme = (cat: string) => {
     switch (cat) {
+      case 'GitHub Accounts':
       case 'Accounts & History':
         return {
           icon: Terminal,
           badge: 'bg-[#DDF4FF] text-[#0969DA] border-[#54AEFF]/30',
           accent: '#0969DA'
         };
+      case 'GitHub Stars':
+      case 'GitHub Followers':
+      case 'GitHub Forks':
+      case 'GitHub Watchers':
       case 'Promotion & Growth':
         return {
           icon: TrendingUp,
           badge: 'bg-[#FFF8C5] text-[#9A6700] border-[#D29922]/30',
           accent: '#D29922'
         };
+      case 'GitHub Security':
       case 'Security & Best Practices':
         return {
           icon: ShieldCheck,
           badge: 'bg-[#E1F0DA] text-[#1A7F37] border-[#2DA44E]/30',
           accent: '#1A7F37'
         };
+      case 'GitHub Repositories':
+      case 'GitHub Commits':
+      case 'GitHub Projects':
+      case 'GitHub Achievements':
+      case 'GitHub Guides':
       default:
         return {
           icon: BookOpen,
@@ -388,6 +402,69 @@ export const BlogDetailPage = ({ post, onOpenOrderModal }: BlogDetailPageProps) 
                     )}
                   </section>
                 ))}
+
+                {/* Comparison Table Component */}
+                {post.comparisonTable && (
+                  <div className="mt-12 bg-white rounded-2xl border border-[#D0D7DE] overflow-hidden shadow-xs">
+                    <div className="bg-[#F6F8FA] px-6 py-4 border-b border-[#D0D7DE] flex items-center space-x-2.5">
+                      <Table className="w-5 h-5 text-[#0969DA]" />
+                       <h3 className="text-base font-bold text-[#24292F]">Feature Comparison &amp; Technical Breakdown</h3>
+                    </div>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left text-xs sm:text-sm border-collapse">
+                        <thead>
+                          <tr className="bg-[#F6F8FA]/70 border-b border-[#D0D7DE]">
+                            {post.comparisonTable.headers.map((header, hIdx) => (
+                              <th key={hIdx} className="py-3 px-4 sm:px-6 font-semibold text-[#24292F]">
+                                {header}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-[#D0D7DE]/60">
+                          {post.comparisonTable.rows.map((row, rIdx) => (
+                            <tr key={rIdx} className="hover:bg-[#F6F8FA]/50 transition-colors">
+                              {row.map((cell, cIdx) => (
+                                <td key={cIdx} className={`py-3.5 px-4 sm:px-6 ${cIdx === 0 ? 'font-bold text-[#24292F]' : 'text-[#57606A]'}`}>
+                                  {cell}
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+
+                {/* Comprehensive FAQ Section */}
+                {post.faqs && post.faqs.length > 0 && (
+                  <div className="mt-14 pt-8 border-t border-[#D0D7DE]">
+                    <div className="flex items-center space-x-3 mb-6">
+                      <div className="w-9 h-9 rounded-xl bg-[#DDF4FF] text-[#0969DA] flex items-center justify-center font-bold">
+                        <HelpCircle className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg sm:text-xl font-bold text-[#24292F]">Frequently Asked Questions</h3>
+                        <p className="text-xs text-[#57606A]">Direct answers to technical queries regarding this topic.</p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      {post.faqs.map((faq, fIdx) => (
+                        <div key={fIdx} className="bg-[#F6F8FA] border border-[#D0D7DE] rounded-xl p-5 hover:border-[#0969DA]/40 transition-colors">
+                          <h4 className="text-sm sm:text-base font-bold text-[#24292F] mb-2 flex items-start">
+                            <span className="text-[#0969DA] mr-2">Q:</span>
+                            {faq.question}
+                          </h4>
+                          <p className="text-xs sm:text-sm text-[#57606A] leading-relaxed pl-6">
+                            {faq.answer}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Tags Cloud */}

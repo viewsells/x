@@ -1,6 +1,14 @@
 import { BlogPost } from '../types';
+import { blogClusterArticlesPart1 } from './blogArticlesPart1';
+import { blogClusterArticlesPart2 } from './blogArticlesPart2';
+import { blogClusterArticlesPart3 } from './blogArticlesPart3';
+import { blogClusterArticlesPart4 } from './blogArticlesPart4';
 
 export const blogPosts: BlogPost[] = [
+  ...blogClusterArticlesPart1,
+  ...blogClusterArticlesPart2,
+  ...blogClusterArticlesPart3,
+  ...blogClusterArticlesPart4,
   {
     slug: 'what-are-github-accounts-how-they-work',
     title: 'What Are GitHub Accounts and How Do They Work?',
