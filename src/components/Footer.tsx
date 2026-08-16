@@ -1,8 +1,12 @@
+import type { MouseEvent } from 'react';
 import { Terminal, Send, MessageSquare, ShieldCheck, ExternalLink, ArrowRight } from 'lucide-react';
 import { navigateTo } from '../utils/router';
 
 export const Footer = () => {
-  const handleNav = (path: string) => {
+  const handleNav = (path: string, e?: MouseEvent) => {
+    if (e && !e.ctrlKey && !e.metaKey) {
+      e.preventDefault();
+    }
     navigateTo(path);
   };
 
@@ -14,14 +18,18 @@ export const Footer = () => {
           
           {/* Column 1: Brand & Overview */}
           <div className="lg:col-span-1 space-y-4">
-            <div className="flex items-center space-x-2.5">
+            <a
+              href="/"
+              onClick={(e) => handleNav('/', e)}
+              className="flex items-center space-x-2.5 group"
+            >
               <div className="w-8 h-8 rounded-md bg-[#2DA44E] flex items-center justify-center text-white">
                 <Terminal className="w-4 h-4 text-white" />
               </div>
               <span className="text-base font-bold text-white tracking-tight">
                 BuyGitHubAccounts<span className="text-[#2DA44E]">.com</span>
               </span>
-            </div>
+            </a>
             <p className="text-xs text-[#8B949E] leading-relaxed">
               Professional digital services platform providing verified developer accounts, aged platform tenure, and organic open-source repository promotion solutions.
             </p>
@@ -54,52 +62,58 @@ export const Footer = () => {
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
-                <button
-                  onClick={() => handleNav('/accounts/buy-new-github-accounts')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/accounts/buy-new-github-accounts"
+                  onClick={(e) => handleNav('/accounts/buy-new-github-accounts', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   New GitHub Accounts ($5)
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('/accounts/buy-aged-github-accounts')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/accounts/buy-aged-github-accounts"
+                  onClick={(e) => handleNav('/accounts/buy-aged-github-accounts', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   Aged GitHub Accounts ($35)
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('/accounts/buy-github-active-account')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/accounts/buy-github-active-account"
+                  onClick={(e) => handleNav('/accounts/buy-github-active-account', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   Active GitHub Accounts ($35)
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('/accounts/buy-github-student-account')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/accounts/buy-github-student-account"
+                  onClick={(e) => handleNav('/accounts/buy-github-student-account', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   Student GitHub Accounts ($55)
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('/accounts/buy-bulk-github-accounts')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/accounts/buy-bulk-github-accounts"
+                  onClick={(e) => handleNav('/accounts/buy-bulk-github-accounts', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   Bulk GitHub Accounts ($200/100)
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('/accounts')}
+                <a
+                  href="/accounts"
+                  onClick={(e) => handleNav('/accounts', e)}
                   className="text-[#58A6FF] hover:underline font-medium pt-1 flex items-center"
                 >
                   All 15 Account Services &rarr;
-                </button>
+                </a>
               </li>
             </ul>
           </div>
@@ -111,52 +125,58 @@ export const Footer = () => {
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
-                <button
-                  onClick={() => handleNav('/promotion-services/buy-github-stars')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/promotion-services/buy-github-stars"
+                  onClick={(e) => handleNav('/promotion-services/buy-github-stars', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   GitHub Stars (From $17)
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('/promotion-services/buy-github-forks')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/promotion-services/buy-github-forks"
+                  onClick={(e) => handleNav('/promotion-services/buy-github-forks', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   GitHub Forks (From $15)
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('/promotion-services/buy-github-followers')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/promotion-services/buy-github-followers"
+                  onClick={(e) => handleNav('/promotion-services/buy-github-followers', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   GitHub Followers (From $25)
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('/promotion-services/buy-github-watchers')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/promotion-services/buy-github-watchers"
+                  onClick={(e) => handleNav('/promotion-services/buy-github-watchers', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   GitHub Watchers (From $25)
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('/promotion-services/buy-github-repositories')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/promotion-services/buy-github-repositories"
+                  onClick={(e) => handleNav('/promotion-services/buy-github-repositories', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   GitHub Repositories (From $10)
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('/promotion-services/buy-github-achievements-badge')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/promotion-services/buy-github-achievements-badge"
+                  onClick={(e) => handleNav('/promotion-services/buy-github-achievements-badge', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   GitHub Achievements Badge
-                </button>
+                </a>
               </li>
             </ul>
           </div>
@@ -168,52 +188,67 @@ export const Footer = () => {
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
-                <button
-                  onClick={() => handleNav('/about')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/about"
+                  onClick={(e) => handleNav('/about', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   About Us
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('/blog')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/blog"
+                  onClick={(e) => handleNav('/blog', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   Blog & Knowledge Base
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('/checkout')}
-                  className="hover:text-white transition-colors text-left text-[#58A6FF] font-medium"
+                <a
+                  href="/payment-methods"
+                  onClick={(e) => handleNav('/payment-methods', e)}
+                  className="hover:text-white transition-colors block text-left"
+                >
+                  Payment Methods & Crypto
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/checkout"
+                  onClick={(e) => handleNav('/checkout', e)}
+                  className="hover:text-white transition-colors block text-left text-[#58A6FF] font-medium"
                 >
                   Order &amp; Checkout
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('/faq')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/faq"
+                  onClick={(e) => handleNav('/faq', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   Frequently Asked Questions
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('/contact')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/contact"
+                  onClick={(e) => handleNav('/contact', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   Contact Support
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('/sitemap')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/sitemap"
+                  onClick={(e) => handleNav('/sitemap', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   HTML & XML Sitemap
-                </button>
+                </a>
               </li>
             </ul>
           </div>
@@ -225,44 +260,49 @@ export const Footer = () => {
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
-                <button
-                  onClick={() => handleNav('/terms')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/terms"
+                  onClick={(e) => handleNav('/terms', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   Terms & Conditions
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('/privacy-policy')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/privacy-policy"
+                  onClick={(e) => handleNav('/privacy-policy', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   Privacy Policy
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('/refund-policy')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/refund-policy"
+                  onClick={(e) => handleNav('/refund-policy', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   Refund Policy (48h Warranty)
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('/delivery-policy')}
-                  className="hover:text-white transition-colors text-left"
+                <a
+                  href="/delivery-policy"
+                  onClick={(e) => handleNav('/delivery-policy', e)}
+                  className="hover:text-white transition-colors block text-left"
                 >
                   Delivery Policy
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => handleNav('/disclaimer')}
-                  className="hover:text-white transition-colors text-left text-[#D29922]"
+                <a
+                  href="/disclaimer"
+                  onClick={(e) => handleNav('/disclaimer', e)}
+                  className="hover:text-white transition-colors block text-left text-[#D29922]"
                 >
                   Disclaimer & Notices
-                </button>
+                </a>
               </li>
             </ul>
           </div>

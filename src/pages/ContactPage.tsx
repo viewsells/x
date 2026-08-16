@@ -5,6 +5,7 @@ import { SEOHead } from '../components/SEOHead';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { CryptoPaymentSection } from '../components/CryptoPaymentSection';
 import { allServices } from '../data/allServices';
+import { sendContactInquiry } from '../services/emailService';
 
 export const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -19,6 +20,15 @@ export const ContactPage = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
+
+    sendContactInquiry({
+      name: formData.name.trim(),
+      contactHandle: formData.contactHandle.trim(),
+      channel: formData.channel,
+      service: formData.service,
+      message: formData.message.trim(),
+    }).catch((err) => console.warn('Contact inquiry email dispatch:', err));
+
     confetti({
       particleCount: 70,
       spread: 60,

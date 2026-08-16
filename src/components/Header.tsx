@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, type MouseEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Terminal, 
@@ -26,8 +26,7 @@ import {
   Award
 } from 'lucide-react';
 import { navigateTo } from '../utils/router';
-import { accountServices } from '../data/accountServicesData';
-import { promotionServices } from '../data/promotionServicesData';
+import { headerAccountServices, headerPromotionServices } from '../data/navServicesData';
 
 interface HeaderProps {
   currentPath: string;
@@ -62,7 +61,10 @@ export const Header = ({ currentPath }: HeaderProps) => {
     };
   }, [isMobileMenuOpen]);
 
-  const handleNavClick = (path: string) => {
+  const handleNavClick = (path: string, e?: MouseEvent) => {
+    if (e && !e.ctrlKey && !e.metaKey) {
+      e.preventDefault();
+    }
     setIsMobileMenuOpen(false);
     setActiveDropdown(null);
     navigateTo(path);
@@ -137,9 +139,10 @@ export const Header = ({ currentPath }: HeaderProps) => {
           
           {/* Brand Logo */}
           <div className="flex items-center">
-            <button
+            <a
               id="header-brand-logo"
-              onClick={() => handleNavClick('/')}
+              href="/"
+              onClick={(e) => handleNavClick('/', e)}
               className="flex items-center space-x-2.5 text-left focus:outline-none group"
             >
               <div className="w-8 h-8 rounded-lg bg-[#238636] flex items-center justify-center text-white shadow-xs group-hover:bg-[#2EA043] transition-colors">
@@ -148,14 +151,15 @@ export const Header = ({ currentPath }: HeaderProps) => {
               <span className="text-base font-semibold tracking-tight text-white flex items-center">
                 BuyGitHubAccounts<span className="text-[#2EA043]">.com</span>
               </span>
-            </button>
+            </a>
           </div>
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center space-x-1">
-            <button
+            <a
               id="nav-home"
-              onClick={() => handleNavClick('/')}
+              href="/"
+              onClick={(e) => handleNavClick('/', e)}
               className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
                 isCurrent('/') && currentPath === '/'
                   ? 'text-white font-semibold bg-[#21262D]'
@@ -163,7 +167,7 @@ export const Header = ({ currentPath }: HeaderProps) => {
               }`}
             >
               Home
-            </button>
+            </a>
 
             {/* 1. Accounts Dropdown with ALL 15 Services */}
             <div 
@@ -171,9 +175,10 @@ export const Header = ({ currentPath }: HeaderProps) => {
               onMouseEnter={() => handleMouseEnter('accounts')}
               onMouseLeave={handleMouseLeave}
             >
-              <button
+              <a
                 id="nav-accounts-dropdown"
-                onClick={() => handleNavClick('/accounts')}
+                href="/accounts"
+                onClick={(e) => handleNavClick('/accounts', e)}
                 className={`px-3 py-1.5 text-sm rounded-md flex items-center gap-1.5 transition-colors ${
                   isCurrent('/accounts') || activeDropdown === 'accounts'
                     ? 'text-white font-semibold bg-[#21262D]'
@@ -185,7 +190,7 @@ export const Header = ({ currentPath }: HeaderProps) => {
                   15
                 </span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-150 ${activeDropdown === 'accounts' ? 'rotate-180 text-white' : 'text-[#8B949E]'}`} />
-              </button>
+              </a>
 
               <AnimatePresence>
                 {activeDropdown === 'accounts' && (
@@ -198,25 +203,27 @@ export const Header = ({ currentPath }: HeaderProps) => {
                   >
                     <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#30363D]/80 px-2">
                       <span className="text-xs font-semibold text-[#8B949E] uppercase tracking-wider">
-                        All GitHub Accounts ({accountServices.length})
+                        All GitHub Accounts ({headerAccountServices.length})
                       </span>
-                      <button
-                        onClick={() => handleNavClick('/accounts')}
+                      <a
+                        href="/accounts"
+                        onClick={(e) => handleNavClick('/accounts', e)}
                         className="text-xs text-[#58A6FF] hover:underline font-medium flex items-center gap-1"
                       >
                         <span>View catalog</span>
                         <ArrowRight className="w-3 h-3" />
-                      </button>
+                      </a>
                     </div>
 
                     {/* 2-Column Grid with all 15 services */}
                     <div className="grid grid-cols-2 gap-1 max-h-[380px] overflow-y-auto pr-1">
-                      {accountServices.map((service) => {
+                      {headerAccountServices.map((service) => {
                         const Icon = getAccountIcon(service.slug);
                         return (
-                          <button
+                          <a
                             key={service.id}
-                            onClick={() => handleNavClick(`/accounts/${service.slug}`)}
+                            href={`/accounts/${service.slug}`}
+                            onClick={(e) => handleNavClick(`/accounts/${service.slug}`, e)}
                             className="w-full text-left px-2.5 py-2 rounded-lg hover:bg-[#21262D] transition-colors flex items-center justify-between text-xs text-[#C9D1D9] hover:text-white group"
                           >
                             <div className="flex items-center gap-2 truncate pr-2">
@@ -226,7 +233,7 @@ export const Header = ({ currentPath }: HeaderProps) => {
                             <span className="font-mono text-[#2EA043] font-semibold text-[11px] shrink-0">
                               {service.basePrice}
                             </span>
-                          </button>
+                          </a>
                         );
                       })}
                     </div>
@@ -246,9 +253,10 @@ export const Header = ({ currentPath }: HeaderProps) => {
               onMouseEnter={() => handleMouseEnter('promotion')}
               onMouseLeave={handleMouseLeave}
             >
-              <button
+              <a
                 id="nav-promotion-dropdown"
-                onClick={() => handleNavClick('/promotion-services')}
+                href="/promotion-services"
+                onClick={(e) => handleNavClick('/promotion-services', e)}
                 className={`px-3 py-1.5 text-sm rounded-md flex items-center gap-1.5 transition-colors ${
                   isCurrent('/promotion-services') || activeDropdown === 'promotion'
                     ? 'text-white font-semibold bg-[#21262D]'
@@ -260,7 +268,7 @@ export const Header = ({ currentPath }: HeaderProps) => {
                   6
                 </span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-150 ${activeDropdown === 'promotion' ? 'rotate-180 text-white' : 'text-[#8B949E]'}`} />
-              </button>
+              </a>
 
               <AnimatePresence>
                 {activeDropdown === 'promotion' && (
@@ -273,24 +281,26 @@ export const Header = ({ currentPath }: HeaderProps) => {
                   >
                     <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#30363D]/80 px-2">
                       <span className="text-xs font-semibold text-[#8B949E] uppercase tracking-wider">
-                        Repository &amp; Profile Growth ({promotionServices.length})
+                        Repository &amp; Profile Growth ({headerPromotionServices.length})
                       </span>
-                      <button
-                        onClick={() => handleNavClick('/promotion-services')}
+                      <a
+                        href="/promotion-services"
+                        onClick={(e) => handleNavClick('/promotion-services', e)}
                         className="text-xs text-[#58A6FF] hover:underline font-medium flex items-center gap-1"
                       >
                         <span>View all</span>
                         <ArrowRight className="w-3 h-3" />
-                      </button>
+                      </a>
                     </div>
 
                     <div className="space-y-1">
-                      {promotionServices.map((service) => {
+                      {headerPromotionServices.map((service) => {
                         const Icon = getPromotionIcon(service.slug);
                         return (
-                          <button
+                          <a
                             key={service.id}
-                            onClick={() => handleNavClick(`/promotion-services/${service.slug}`)}
+                            href={`/promotion-services/${service.slug}`}
+                            onClick={(e) => handleNavClick(`/promotion-services/${service.slug}`, e)}
                             className="w-full text-left px-2.5 py-2 rounded-lg hover:bg-[#21262D] transition-colors flex items-center justify-between text-xs text-[#C9D1D9] hover:text-white group"
                           >
                             <div className="flex items-center gap-2.5 truncate pr-2">
@@ -307,7 +317,7 @@ export const Header = ({ currentPath }: HeaderProps) => {
                             <span className="font-mono text-[#2EA043] font-semibold text-xs shrink-0">
                               {service.basePrice}
                             </span>
-                          </button>
+                          </a>
                         );
                       })}
                     </div>
@@ -316,9 +326,10 @@ export const Header = ({ currentPath }: HeaderProps) => {
               </AnimatePresence>
             </div>
 
-            <button
+            <a
               id="nav-blog"
-              onClick={() => handleNavClick('/blog')}
+              href="/blog"
+              onClick={(e) => handleNavClick('/blog', e)}
               className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
                 isCurrent('/blog')
                   ? 'text-white font-semibold bg-[#21262D]'
@@ -326,11 +337,12 @@ export const Header = ({ currentPath }: HeaderProps) => {
               }`}
             >
               Blog
-            </button>
+            </a>
 
-            <button
+            <a
               id="nav-faq"
-              onClick={() => handleNavClick('/faq')}
+              href="/faq"
+              onClick={(e) => handleNavClick('/faq', e)}
               className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
                 isCurrent('/faq')
                   ? 'text-white font-semibold bg-[#21262D]'
@@ -338,11 +350,12 @@ export const Header = ({ currentPath }: HeaderProps) => {
               }`}
             >
               FAQ
-            </button>
+            </a>
 
-            <button
+            <a
               id="nav-contact"
-              onClick={() => handleNavClick('/contact')}
+              href="/contact"
+              onClick={(e) => handleNavClick('/contact', e)}
               className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
                 isCurrent('/contact')
                   ? 'text-white font-semibold bg-[#21262D]'
@@ -350,7 +363,7 @@ export const Header = ({ currentPath }: HeaderProps) => {
               }`}
             >
               Contact
-            </button>
+            </a>
           </nav>
 
           {/* Desktop Right Action */}
@@ -365,14 +378,15 @@ export const Header = ({ currentPath }: HeaderProps) => {
               <span>@EgSupport24</span>
             </a>
 
-            <button
+            <a
               id="header-cta-explore"
-              onClick={() => handleNavClick('/accounts')}
+              href="/accounts"
+              onClick={(e) => handleNavClick('/accounts', e)}
               className="bg-[#238636] hover:bg-[#2EA043] text-white text-xs font-semibold px-3.5 py-2 rounded-lg transition-colors flex items-center gap-1.5"
             >
               <span>Explore Accounts</span>
               <ArrowRight className="w-3.5 h-3.5" />
-            </button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -403,14 +417,15 @@ export const Header = ({ currentPath }: HeaderProps) => {
             {/* Primary Nav Links & Accordion Sub-menus */}
             <div className="space-y-1">
               {/* Home */}
-              <button
-                onClick={() => handleNavClick('/')}
-                className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
+              <a
+                href="/"
+                onClick={(e) => handleNavClick('/', e)}
+                className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                   currentPath === '/' ? 'bg-[#21262D] text-white font-semibold' : 'text-[#C9D1D9] hover:bg-[#21262D]'
                 }`}
               >
                 Home
-              </button>
+              </a>
 
               {/* 1. Mobile Accounts Sub-Menu Accordion */}
               <div>
@@ -431,12 +446,13 @@ export const Header = ({ currentPath }: HeaderProps) => {
 
                 {mobileAccountsOpen && (
                   <div className="mt-1 ml-2 pl-2 border-l-2 border-[#238636] space-y-0.5 py-1">
-                    {accountServices.map((service) => {
+                    {headerAccountServices.map((service) => {
                       const Icon = getAccountIcon(service.slug);
                       return (
-                        <button
+                        <a
                           key={service.id}
-                          onClick={() => handleNavClick(`/accounts/${service.slug}`)}
+                          href={`/accounts/${service.slug}`}
+                          onClick={(e) => handleNavClick(`/accounts/${service.slug}`, e)}
                           className="w-full text-left px-2.5 py-1.5 rounded-md hover:bg-[#21262D] text-xs flex items-center justify-between text-[#C9D1D9] hover:text-white"
                         >
                           <div className="flex items-center gap-2 truncate pr-2">
@@ -446,15 +462,16 @@ export const Header = ({ currentPath }: HeaderProps) => {
                           <span className="font-mono text-[#2EA043] font-semibold text-[11px] shrink-0">
                             {service.basePrice}
                           </span>
-                        </button>
+                        </a>
                       );
                     })}
-                    <button
-                      onClick={() => handleNavClick('/accounts')}
-                      className="w-full text-left px-2.5 py-1.5 text-xs text-[#58A6FF] hover:underline font-medium"
+                    <a
+                      href="/accounts"
+                      onClick={(e) => handleNavClick('/accounts', e)}
+                      className="block w-full text-left px-2.5 py-1.5 text-xs text-[#58A6FF] hover:underline font-medium"
                     >
                       View all accounts catalog &rarr;
-                    </button>
+                    </a>
                   </div>
                 )}
               </div>
@@ -478,12 +495,13 @@ export const Header = ({ currentPath }: HeaderProps) => {
 
                 {mobilePromotionOpen && (
                   <div className="mt-1 ml-2 pl-2 border-l-2 border-[#E3B341] space-y-0.5 py-1">
-                    {promotionServices.map((service) => {
+                    {headerPromotionServices.map((service) => {
                       const Icon = getPromotionIcon(service.slug);
                       return (
-                        <button
+                        <a
                           key={service.id}
-                          onClick={() => handleNavClick(`/promotion-services/${service.slug}`)}
+                          href={`/promotion-services/${service.slug}`}
+                          onClick={(e) => handleNavClick(`/promotion-services/${service.slug}`, e)}
                           className="w-full text-left px-2.5 py-1.5 rounded-md hover:bg-[#21262D] text-xs flex items-center justify-between text-[#C9D1D9] hover:text-white"
                         >
                           <div className="flex items-center gap-2 truncate pr-2">
@@ -493,44 +511,48 @@ export const Header = ({ currentPath }: HeaderProps) => {
                           <span className="font-mono text-[#2EA043] font-semibold text-[11px] shrink-0">
                             {service.basePrice}
                           </span>
-                        </button>
+                        </a>
                       );
                     })}
-                    <button
-                      onClick={() => handleNavClick('/promotion-services')}
-                      className="w-full text-left px-2.5 py-1.5 text-xs text-[#58A6FF] hover:underline font-medium"
+                    <a
+                      href="/promotion-services"
+                      onClick={(e) => handleNavClick('/promotion-services', e)}
+                      className="block w-full text-left px-2.5 py-1.5 text-xs text-[#58A6FF] hover:underline font-medium"
                     >
                       View all promotion services &rarr;
-                    </button>
+                    </a>
                   </div>
                 )}
               </div>
 
               {/* Other Navigation Links */}
-              <button
-                onClick={() => handleNavClick('/blog')}
-                className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
+              <a
+                href="/blog"
+                onClick={(e) => handleNavClick('/blog', e)}
+                className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                   currentPath.startsWith('/blog') ? 'bg-[#21262D] text-white font-semibold' : 'text-[#C9D1D9] hover:bg-[#21262D]'
                 }`}
               >
                 Blog
-              </button>
-              <button
-                onClick={() => handleNavClick('/faq')}
-                className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
+              </a>
+              <a
+                href="/faq"
+                onClick={(e) => handleNavClick('/faq', e)}
+                className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                   currentPath === '/faq' ? 'bg-[#21262D] text-white font-semibold' : 'text-[#C9D1D9] hover:bg-[#21262D]'
                 }`}
               >
                 FAQ
-              </button>
-              <button
-                onClick={() => handleNavClick('/contact')}
-                className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
+              </a>
+              <a
+                href="/contact"
+                onClick={(e) => handleNavClick('/contact', e)}
+                className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                   currentPath === '/contact' ? 'bg-[#21262D] text-white font-semibold' : 'text-[#C9D1D9] hover:bg-[#21262D]'
                 }`}
               >
                 Contact
-              </button>
+              </a>
             </div>
 
             {/* Quick Contact & Action Buttons */}
@@ -556,13 +578,14 @@ export const Header = ({ currentPath }: HeaderProps) => {
                 </a>
               </div>
 
-              <button
-                onClick={() => handleNavClick('/accounts')}
+              <a
+                href="/accounts"
+                onClick={(e) => handleNavClick('/accounts', e)}
                 className="w-full bg-[#238636] hover:bg-[#2EA043] text-white text-xs font-bold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-1.5"
               >
                 <span>View All Accounts</span>
                 <ArrowRight className="w-3.5 h-3.5" />
-              </button>
+              </a>
             </div>
           </motion.div>
         )}

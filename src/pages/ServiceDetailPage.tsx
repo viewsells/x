@@ -103,6 +103,50 @@ export const ServiceDetailPage = ({ service, onOpenOrderModal }: ServiceDetailPa
     `Hello, I want to purchase: ${service.name} (${selectedTier.label || selectedTier.quantity}) for ${selectedTier.price}. Please share crypto payment address.`
   );
 
+  const structuredBreadcrumbSchema = {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://buygithubaccounts.com/'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: categoryLabel,
+        item: `https://buygithubaccounts.com${categoryPath}`
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: service.name,
+        item: `https://buygithubaccounts.com${categoryPath}/${service.slug}`
+      }
+    ]
+  };
+
+  const structuredServiceSchema = {
+    '@type': 'Service',
+    name: service.name,
+    description: service.shortDescription,
+    provider: {
+      '@type': 'Organization',
+      name: 'BuyGitHubAccounts.com',
+      url: 'https://buygithubaccounts.com'
+    },
+    serviceType: categoryLabel,
+    offers: {
+      '@type': 'AggregateOffer',
+      priceCurrency: 'USD',
+      lowPrice: String(currentTiers[0]?.price || '5').replace(/[^0-9.]/g, '') || '5',
+      highPrice: String(currentTiers[currentTiers.length - 1]?.price || '200').replace(/[^0-9.]/g, '') || '200',
+      offerCount: currentTiers.length,
+      availability: 'https://schema.org/InStock'
+    }
+  };
+
   const structuredProductSchema = {
     '@type': 'Product',
     name: service.name,
@@ -141,7 +185,7 @@ export const ServiceDetailPage = ({ service, onOpenOrderModal }: ServiceDetailPa
         description={service.metaDescription}
         canonicalPath={`${categoryPath}/${service.slug}`}
         ogType="product"
-        schemaData={[structuredProductSchema, structuredFaqSchema]}
+        schemaData={[structuredBreadcrumbSchema, structuredServiceSchema, structuredProductSchema, structuredFaqSchema]}
       />
 
       {/* BREADCRUMB NAVIGATION WITH FADE-IN */}
@@ -666,7 +710,10 @@ export const ServiceDetailPage = ({ service, onOpenOrderModal }: ServiceDetailPa
                     Security Best Practices After Delivery
                   </h3>
                   <p>
-                    Upon receiving your credential file, we recommend rotating the master password immediately, enabling application-based Two-Factor Authentication (TOTP via Google Authenticator or 1Password), and provisioning custom SSH keys and Personal Access Tokens (PAT) scoped exclusively to your project requirements.
+                    Upon receiving your credential file, we recommend rotating the master password immediately, enabling application-based Two-Factor Authentication (TOTP via Google Authenticator or 1Password), and provisioning custom SSH keys and Personal Access Tokens (PAT) scoped exclusively to your project requirements. For official security guidelines, consult the <a href="https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa" target="_blank" rel="noopener noreferrer" className="text-[#0969DA] font-semibold hover:underline inline-flex items-center gap-1">official GitHub 2FA documentation <ExternalLink className="w-3 h-3" /></a>.
+                  </p>
+                  <p className="text-xs text-[#57606A] pt-1">
+                    Every order is protected by our <a href="/refund-policy" onClick={(e) => { if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); navigateTo('/refund-policy'); } }} className="text-[#0969DA] font-semibold hover:underline">48-Hour Replacement Guarantee</a> and supported 24/7 across our direct communication desks.
                   </p>
                 </div>
               </div>

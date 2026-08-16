@@ -753,3 +753,33 @@ export const blogPosts: BlogPost[] = [
 export const getBlogBySlug = (slug: string): BlogPost | undefined => {
   return blogPosts.find((b) => b.slug === slug);
 };
+
+export const featuredBlogPreviews = [
+  {
+    slug: 'what-are-github-accounts-how-they-work',
+    title: 'What Are GitHub Accounts and How Do They Work?',
+    category: 'Accounts & History',
+    publishedDate: '2026-06-15',
+    readTime: '8 min read',
+    summary: 'Explore the architectural foundations of GitHub accounts, including user profile hierarchies, Git remote authentication protocols, personal access tokens, and organizational memberships.',
+    tags: ['GitHub Basics', 'Developer Guide', 'Git Authentication', 'SSH Keys']
+  },
+  {
+    slug: 'new-vs-aged-github-accounts-difference',
+    title: 'New vs Aged GitHub Accounts: What’s the Difference?',
+    category: 'Accounts & History',
+    publishedDate: '2026-06-22',
+    readTime: '9 min read',
+    summary: 'A thorough comparative analysis of freshly registered versus aged GitHub accounts, exploring platform tenure, algorithmic trust, CI/CD sandbox integration, and compliance best practices.',
+    tags: ['Aged Accounts', 'New Accounts', 'Platform Comparison', 'Best Practices']
+  },
+  {
+    slug: 'understanding-github-account-history',
+    title: 'Understanding GitHub Account History',
+    category: 'Accounts & History',
+    publishedDate: '2026-06-28',
+    readTime: '10 min read',
+    summary: 'Learn how GitHub tracks and calculates contribution activity, repository creation histories, issue tracking interactions, and timeline metrics across developer accounts.',
+    tags: ['Contribution Graph', 'Commit History', 'Developer Portfolio', 'GitHub Metrics']
+  }
+];

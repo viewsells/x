@@ -41,22 +41,24 @@ const promotionSlugs = [
 const blogSlugs = [
   'what-are-github-accounts-how-they-work',
   'new-vs-aged-github-accounts-difference',
-  'github-stars-algorithm-how-repositories-trend',
-  'github-student-developer-pack-benefits-breakdown',
-  'preventing-github-account-suspensions-best-practices',
-  'how-github-forks-signal-real-world-utility',
-  'scaling-github-actions-runners-dedicated-accounts',
-  'github-follower-metrics-developer-authority-guide',
-  'commit-activity-patterns-signals-of-active-maintenance',
-  'github-achievements-badges-complete-breakdown',
-  'safely-managing-multiple-github-identities-ssh-config',
-  'crypto-payment-privacy-guide-digital-developer-services',
-  'github-organization-vs-personal-accounts-teams',
-  'github-repository-watchers-developer-interest-metric',
-  'bulk-github-accounts-enterprise-qa-testing-isolation',
-  'github-legion-and-authena-infrastructure-developer-guide',
-  'github-account-warranty-terms-what-to-expect',
-  'open-source-promotion-ethics-transparency-guide'
+  'understanding-github-account-history',
+  'what-are-github-stars',
+  'what-are-github-forks',
+  'what-are-github-followers',
+  'what-are-github-watchers',
+  'understanding-github-repository-history',
+  'github-account-security-best-practices',
+  'how-to-protect-a-github-account',
+  'github-account-recovery-and-security',
+  'github-profile-optimization-guide',
+  'how-github-profiles-build-developer-credibility',
+  'understanding-github-achievements',
+  'github-repository-management-guide',
+  'github-account-terms-and-platform-policies',
+  'how-to-choose-a-github-service-provider',
+  'github-account-pricing-guide',
+  'github-stars-vs-followers-vs-watchers',
+  'common-github-account-questions-answered'
 ];
 
 // Core pages
@@ -115,6 +117,9 @@ if (fs.existsSync(path.join(publicDir, 'sitemap.xml'))) {
 }
 if (fs.existsSync(path.join(publicDir, 'googleedb1345b51ee2a94.html'))) {
   fs.copyFileSync(path.join(publicDir, 'googleedb1345b51ee2a94.html'), path.join(distDir, 'googleedb1345b51ee2a94.html'));
+}
+if (fs.existsSync(path.join(publicDir, 'llms.txt'))) {
+  fs.copyFileSync(path.join(publicDir, 'llms.txt'), path.join(distDir, 'llms.txt'));
 }
 
 // Generate directory and index.html for each route

@@ -37,6 +37,7 @@ import { allServices, getServiceById } from '../data/allServices';
 import { cryptoWallets, getCryptoWalletById } from '../data/cryptoWallets';
 import { ServiceItem, PricingTier, CryptoWallet } from '../types';
 import { navigateTo } from '../utils/router';
+import { sendOrderNotification } from '../services/emailService';
 
 interface CheckoutPageProps {
   initialServiceId?: string;
@@ -165,14 +166,41 @@ export const CheckoutPage = ({ initialServiceId }: CheckoutPageProps) => {
 
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      const generatedOrderId = `BGA-${Math.floor(100000 + Math.random() * 900000)}`;
-      const nowStr = new Date().toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric'
-      });
+    const generatedOrderId = `BGA-${Math.floor(100000 + Math.random() * 900000)}`;
+    const nowStr = new Date().toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
 
+    // Send Admin Notification to smmbuy2022@gmail.com and Customer Confirmation Email
+    sendOrderNotification({
+      orderId: generatedOrderId,
+      orderDate: nowStr,
+      customerName: `${firstName} ${lastName}`.trim() || 'Valued Developer',
+      billingEmail: billingEmail.trim(),
+      country,
+      contactChannel,
+      contactHandle: contactHandle.trim(),
+      targetUrl: targetUrl.trim(),
+      deliveryFormat,
+      orderNotes: orderNotes.trim(),
+      serviceName: currentService.name,
+      serviceId: currentService.id,
+      tierLabel: selectedTier.label || String(selectedTier.quantity),
+      quantity: quantityMultiplier,
+      subtotal: rawSubtotal,
+      discountCode: appliedDiscount?.code,
+      discountAmount: discountAmount,
+      totalUsd: finalTotalUsd,
+      paymentMethod: selectedWallet.name,
+      cryptoAmount: cryptoTotal,
+      cryptoSymbol: selectedWallet.symbol,
+      depositWalletAddress: selectedWallet.address,
+      txHash: txHash.trim(),
+    }).catch((err) => console.warn('Order email dispatch notice:', err));
+
+    setTimeout(() => {
       setOrderId(generatedOrderId);
       setOrderDate(nowStr);
       setIsSubmitting(false);

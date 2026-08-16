@@ -1,9 +1,9 @@
 import { useState, useEffect, type FormEvent } from 'react';
 import { X, Send, MessageSquare, Check, Copy, ShieldCheck, Terminal, Coins, Wallet, ChevronRight } from 'lucide-react';
-import confetti from 'canvas-confetti';
 import { allServices } from '../data/allServices';
 import { cryptoWallets, getCryptoWalletById } from '../data/cryptoWallets';
 import { ServiceItem, PricingTier, CryptoWallet } from '../types';
+import { sendOrderNotification } from '../services/emailService';
 
 interface QuickOrderModalProps {
   isOpen: boolean;
@@ -69,14 +69,54 @@ Please confirm payment details. Thank you!`;
     window.open(`https://wa.me/13073939979?text=${encoded}`, '_blank');
   };
 
-  const handleSubmitInquiry = (e: FormEvent) => {
+  const handleSubmitInquiry = async (e: FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
-    confetti({
-      particleCount: 80,
-      spread: 60,
-      origin: { y: 0.6 }
+
+    const generatedOrderId = `BGA-Q${Math.floor(10000 + Math.random() * 90000)}`;
+    const nowStr = new Date().toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
     });
+
+    const priceNum = parseFloat(String(selectedTier.price).replace(/[^0-9.]/g, '')) || 5;
+    const isEmail = customerContact.includes('@');
+
+    sendOrderNotification({
+      orderId: generatedOrderId,
+      orderDate: nowStr,
+      customerName: 'Quick Order Customer',
+      billingEmail: isEmail ? customerContact.trim() : '',
+      country: 'Global',
+      contactChannel: isEmail ? 'email' : customerContact.startsWith('+') ? 'whatsapp' : 'telegram',
+      contactHandle: customerContact.trim(),
+      targetUrl: notes.trim(),
+      deliveryFormat: 'text',
+      orderNotes: notes.trim(),
+      serviceName: currentService.name,
+      serviceId: currentService.id,
+      tierLabel: selectedTier.label || String(selectedTier.quantity),
+      quantity: 1,
+      subtotal: priceNum,
+      totalUsd: priceNum,
+      paymentMethod: selectedWallet.name,
+      cryptoAmount: (priceNum / selectedWallet.estRateUsd).toFixed(selectedWallet.decimals),
+      cryptoSymbol: selectedWallet.symbol,
+      depositWalletAddress: selectedWallet.address,
+    }).catch((err) => console.warn('Quick order email dispatch:', err));
+
+    try {
+      const confettiModule = await import('canvas-confetti');
+      const confetti = (confettiModule.default || confettiModule) as unknown as (options?: unknown) => void;
+      confetti({
+        particleCount: 80,
+        spread: 60,
+        origin: { y: 0.6 }
+      });
+    } catch {
+      // Graceful fallback if confetti fails to load
+    }
   };
 
   return (
@@ -93,6 +133,7 @@ Please confirm payment details. Thank you!`;
           </div>
           <button
             onClick={onClose}
+            aria-label="Close order modal"
             className="text-[#8B949E] hover:text-white p-1 rounded-md transition-colors"
           >
             <X className="w-5 h-5" />

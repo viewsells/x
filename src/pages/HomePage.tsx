@@ -30,8 +30,7 @@ import {
   BookOpen
 } from 'lucide-react';
 import { SEOHead } from '../components/SEOHead';
-import { allServices } from '../data/allServices';
-import { blogPosts } from '../data/blogData';
+import { featuredBlogPreviews } from '../data/blogData';
 import { navigateTo } from '../utils/router';
 
 interface HomePageProps {
@@ -39,21 +38,12 @@ interface HomePageProps {
 }
 
 export const HomePage = ({ onOpenOrderModal }: HomePageProps) => {
-  // Page Loading Animation (700-900ms smooth reveal)
-  const [isLoading, setIsLoading] = useState(true);
   const [activeFaqIndex, setActiveFaqIndex] = useState<number | null>(0);
   const [pricingTab, setPricingTab] = useState<'accounts' | 'stars' | 'followers' | 'forks' | 'watchers' | 'repositories'>('accounts');
   const [explorerCategory, setExplorerCategory] = useState<'accounts' | 'stars' | 'followers' | 'forks' | 'watchers' | 'repositories' | 'achievements'>('accounts');
   const [heroInteractiveTab, setHeroInteractiveTab] = useState<'accounts' | 'promotion'>('accounts');
   const [hoveredHeroService, setHoveredHeroService] = useState<string | null>(null);
   const [isSeoExpanded, setIsSeoExpanded] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 850);
-    return () => clearTimeout(timer);
-  }, []);
 
   const scrollToServices = () => {
     const el = document.getElementById('services-section');
@@ -257,51 +247,11 @@ export const HomePage = ({ onOpenOrderModal }: HomePageProps) => {
     { num: '06', title: 'Receive Service', desc: 'Receive your full credential payload with primary email ownership and 48-hour warranty protection.' },
   ];
 
-  const featuredBlogs = blogPosts.slice(0, 3);
+  const featuredBlogs = featuredBlogPreviews;
 
   return (
     <div className="bg-[#FFFFFF] text-[#24292F] min-h-screen relative overflow-hidden font-sans selection:bg-[#2DA44E] selection:text-white">
       
-      {/* 3. PAGE LOADING ANIMATION (700-900ms smooth reveal) */}
-      <AnimatePresence>
-        {isLoading && (
-          <motion.div
-            key="page-loader"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35, ease: 'easeInOut' }}
-            className="fixed inset-0 z-50 bg-[#0D1117] flex flex-col items-center justify-center pointer-events-none"
-          >
-            <motion.div
-              initial={{ scale: 0.85, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.4, ease: 'easeOut' }}
-              className="flex flex-col items-center text-center space-y-4 px-6"
-            >
-              <div className="w-12 h-12 rounded-xl bg-[#24292F] border border-[#30363D] flex items-center justify-center text-[#2DA44E] shadow-lg shadow-[#2DA44E]/10">
-                <Terminal className="w-6 h-6 animate-pulse" />
-              </div>
-              <div>
-                <span className="text-xl sm:text-2xl font-bold tracking-tight text-white font-mono">
-                  BuyGitHubAccounts<span className="text-[#2DA44E]">.com</span>
-                </span>
-                <p className="text-xs text-[#8B949E] mt-1 font-mono tracking-wider uppercase">
-                  Initializing Developer Platform...
-                </p>
-              </div>
-              <div className="w-32 h-1 bg-[#21262D] rounded-full overflow-hidden mt-2">
-                <motion.div
-                  initial={{ width: '0%' }}
-                  animate={{ width: '100%' }}
-                  transition={{ duration: 0.7, ease: 'easeInOut' }}
-                  className="h-full bg-[#2DA44E]"
-                />
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       <SEOHead
         title="Buy GitHub Accounts & Promotion Services | Verified & Aged Accounts"
         description="Buy verified GitHub accounts (new, aged, active, student) and GitHub promotion services (stars, followers, forks, watchers). Transparent pricing with crypto support."
@@ -1292,7 +1242,7 @@ export const HomePage = ({ onOpenOrderModal }: HomePageProps) => {
                 GitHub Account Services
               </h3>
               <p>
-                Developer accounts serve as the primary identity for collaborating on open-source codebases, configuring continuous integration pipelines, and deploying software infrastructure. BuyGitHubAccounts.com offers verified developer accounts prepared specifically for software engineering teams, independent consultants, and QA automation departments. Every account is provisioned with primary email mailbox credentials to ensure the purchaser retains full sovereignty over login credentials, secondary two-factor authentication, and notification settings.
+                Developer accounts serve as the primary identity for collaborating on open-source codebases, configuring continuous integration pipelines, and deploying software infrastructure. BuyGitHubAccounts.com offers verified developer accounts prepared specifically for software engineering teams, independent consultants, and QA automation departments. Explore our catalog of <a href="/accounts/buy-new-github-accounts" onClick={(e) => { if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); navigateTo('/accounts/buy-new-github-accounts'); } }} className="text-[#0969DA] font-semibold hover:underline">new GitHub accounts</a>, <a href="/accounts/buy-developer-verified-github-accounts" onClick={(e) => { if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); navigateTo('/accounts/buy-developer-verified-github-accounts'); } }} className="text-[#0969DA] font-semibold hover:underline">developer-verified profiles</a>, and <a href="/accounts/buy-bulk-github-accounts" onClick={(e) => { if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); navigateTo('/accounts/buy-bulk-github-accounts'); } }} className="text-[#0969DA] font-semibold hover:underline">bulk GitHub accounts</a>. Every account is provisioned with primary email mailbox credentials to ensure the purchaser retains full sovereignty over login credentials, secondary two-factor authentication, and notification settings.
               </p>
             </div>
 
@@ -1301,7 +1251,7 @@ export const HomePage = ({ onOpenOrderModal }: HomePageProps) => {
                 Aged and Active Accounts
               </h3>
               <p>
-                In platform verification algorithms and automated code analysis tooling, account age and historical commit activity are key factors in trust evaluation. Aged GitHub accounts benefit from long-standing platform tenure, allowing engineering departments to avoid the velocity limits often applied to newly registered profiles. Active accounts feature structured contribution graphs and public activity history, providing credible developer profiles for technical demonstrations, open-source maintainership, and professional portfolio presentation.
+                In platform verification algorithms and automated code analysis tooling, account age and historical commit activity are key factors in trust evaluation. Our <a href="/accounts/buy-aged-github-accounts" onClick={(e) => { if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); navigateTo('/accounts/buy-aged-github-accounts'); } }} className="text-[#0969DA] font-semibold hover:underline">aged GitHub accounts</a> benefit from long-standing platform tenure (2015–2024), allowing engineering departments to avoid the velocity limits often applied to newly registered profiles. <a href="/accounts/buy-github-active-account" onClick={(e) => { if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); navigateTo('/accounts/buy-github-active-account'); } }} className="text-[#0969DA] font-semibold hover:underline">Active accounts</a> and <a href="/accounts/buy-green-heatmap-github-accounts" onClick={(e) => { if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); navigateTo('/accounts/buy-green-heatmap-github-accounts'); } }} className="text-[#0969DA] font-semibold hover:underline">green heatmap profiles</a> feature structured contribution graphs and public activity history, providing credible developer profiles for technical demonstrations, open-source maintainership, and professional portfolio presentation.
               </p>
             </div>
 
@@ -1310,7 +1260,7 @@ export const HomePage = ({ onOpenOrderModal }: HomePageProps) => {
                 GitHub Promotion Services
               </h3>
               <p>
-                Promoting software projects in high-density package ecosystems requires consistent visibility signals. Our repository promotion solutions are engineered to simulate organic developer discovery across search indices and curated showcase feeds. Services are delivered with deliberate rate pacing from established developer profiles to ensure stability and platform compliance.
+                Promoting software projects in high-density package ecosystems requires consistent visibility signals. Our complete <a href="/promotion-services" onClick={(e) => { if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); navigateTo('/promotion-services'); } }} className="text-[#0969DA] font-semibold hover:underline">repository promotion solutions</a> are engineered to simulate organic developer discovery across search indices and curated showcase feeds. Services are delivered with deliberate rate pacing from established developer profiles to ensure stability and platform compliance.
               </p>
             </div>
 
@@ -1319,7 +1269,7 @@ export const HomePage = ({ onOpenOrderModal }: HomePageProps) => {
                 Stars, Followers and Forks
               </h3>
               <p>
-                Repository stars act as a key indicator of quality for software repositories, influencing trending algorithms and open-source adoption. Developer followers expand profile authority and community reach, while codebase forks reflect real-world developer branching and utility. All promotion orders include non-drop warranty protection and clear tracking parameters.
+                Repository stars act as a key indicator of quality for software repositories, influencing trending algorithms and open-source adoption. Order authentic <a href="/promotion-services/buy-github-stars" onClick={(e) => { if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); navigateTo('/promotion-services/buy-github-stars'); } }} className="text-[#0969DA] font-semibold hover:underline">GitHub stars</a> to increase repository traction, <a href="/promotion-services/buy-github-followers" onClick={(e) => { if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); navigateTo('/promotion-services/buy-github-followers'); } }} className="text-[#0969DA] font-semibold hover:underline">developer followers</a> to expand profile authority, and codebase <a href="/promotion-services/buy-github-forks" onClick={(e) => { if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); navigateTo('/promotion-services/buy-github-forks'); } }} className="text-[#0969DA] font-semibold hover:underline">GitHub forks</a> to reflect real-world developer branching. All promotion orders include non-drop warranty protection and clear tracking parameters.
               </p>
             </div>
 
@@ -1328,7 +1278,7 @@ export const HomePage = ({ onOpenOrderModal }: HomePageProps) => {
                 Choosing the Right Service
               </h3>
               <p>
-                When selecting between accounts and promotion packages, evaluate your project lifecycle and deployment needs. If your team requires clean environments for isolated testing or continuous integration runners, our new or bulk accounts provide cost-effective solutions. For organizations seeking to establish credibility for new repositories, our staged star and follower packages deliver safe, proportional growth.
+                When selecting between accounts and promotion packages, evaluate your project lifecycle and deployment needs. If your team requires clean environments for isolated testing or continuous integration runners, our <a href="/accounts/buy-new-github-accounts" onClick={(e) => { if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); navigateTo('/accounts/buy-new-github-accounts'); } }} className="text-[#0969DA] font-semibold hover:underline">new</a> or <a href="/accounts/buy-bulk-github-accounts" onClick={(e) => { if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); navigateTo('/accounts/buy-bulk-github-accounts'); } }} className="text-[#0969DA] font-semibold hover:underline">bulk accounts</a> provide cost-effective solutions. For organizations seeking to establish credibility for new repositories, our staged star and follower packages deliver safe, proportional growth. Check our <a href="/faq" onClick={(e) => { if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); navigateTo('/faq'); } }} className="text-[#0969DA] font-semibold hover:underline">FAQ guide</a> for comprehensive answers to common developer questions.
               </p>
             </div>
 
@@ -1337,7 +1287,7 @@ export const HomePage = ({ onOpenOrderModal }: HomePageProps) => {
                 Ordering and Support
               </h3>
               <p>
-                Orders are processed seamlessly via our cryptocurrency checkout gateway or directly with our technical support team via Telegram (@EgSupport24) and WhatsApp (+1 307 393-9979). All packages feature fixed published pricing, instant delivery turnarounds, and a 48-Hour Replacement Guarantee for complete peace of mind.
+                Orders are processed seamlessly via our <a href="/payment-methods" onClick={(e) => { if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); navigateTo('/payment-methods'); } }} className="text-[#0969DA] font-semibold hover:underline">cryptocurrency checkout gateway</a> or directly with our technical support team via Telegram (<a href="https://t.me/EgSupport24" target="_blank" rel="noopener noreferrer" className="text-[#0969DA] font-semibold hover:underline">@EgSupport24</a>) and WhatsApp (<a href="https://wa.me/13073939979" target="_blank" rel="noopener noreferrer" className="text-[#0969DA] font-semibold hover:underline">+1 307 393-9979</a>). Visit our <a href="/contact" onClick={(e) => { if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); navigateTo('/contact'); } }} className="text-[#0969DA] font-semibold hover:underline">contact page</a> for additional channels. All packages feature fixed published pricing, instant delivery turnarounds, and a <a href="/refund-policy" onClick={(e) => { if (!e.ctrlKey && !e.metaKey) { e.preventDefault(); navigateTo('/refund-policy'); } }} className="text-[#0969DA] font-semibold hover:underline">48-Hour Replacement Guarantee</a> for complete peace of mind.
               </p>
             </div>
 

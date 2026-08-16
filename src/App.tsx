@@ -3,31 +3,42 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { useAppRouter } from './utils/router';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { QuickOrderModal } from './components/QuickOrderModal';
 
-// Pages
+// Eagerly loaded critical landing page
 import { HomePage } from './pages/HomePage';
-import { AccountsCategoryPage } from './pages/AccountsCategoryPage';
-import { PromotionCategoryPage } from './pages/PromotionCategoryPage';
-import { ServiceDetailPage } from './pages/ServiceDetailPage';
-import { BlogListPage } from './pages/BlogListPage';
-import { BlogDetailPage } from './pages/BlogDetailPage';
-import { FaqPage } from './pages/FaqPage';
-import { AboutPage } from './pages/AboutPage';
-import { ContactPage } from './pages/ContactPage';
-import { CheckoutPage } from './pages/CheckoutPage';
-import { PaymentMethodsPage } from './pages/PaymentMethodsPage';
-import { LegalPage } from './pages/LegalPage';
-import { SitemapPage } from './pages/SitemapPage';
-import { NotFoundPage } from './pages/NotFoundPage';
+
+// Lazy-loaded secondary pages for optimal initial bundle performance
+const AccountsCategoryPage = lazy(() => import('./pages/AccountsCategoryPage').then(m => ({ default: m.AccountsCategoryPage })));
+const PromotionCategoryPage = lazy(() => import('./pages/PromotionCategoryPage').then(m => ({ default: m.PromotionCategoryPage })));
+const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage').then(m => ({ default: m.ServiceDetailPage })));
+const BlogListPage = lazy(() => import('./pages/BlogListPage').then(m => ({ default: m.BlogListPage })));
+const BlogDetailPage = lazy(() => import('./pages/BlogDetailPage').then(m => ({ default: m.BlogDetailPage })));
+const FaqPage = lazy(() => import('./pages/FaqPage').then(m => ({ default: m.FaqPage })));
+const AboutPage = lazy(() => import('./pages/AboutPage').then(m => ({ default: m.AboutPage })));
+const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })));
+const CheckoutPage = lazy(() => import('./pages/CheckoutPage').then(m => ({ default: m.CheckoutPage })));
+const PaymentMethodsPage = lazy(() => import('./pages/PaymentMethodsPage').then(m => ({ default: m.PaymentMethodsPage })));
+const LegalPage = lazy(() => import('./pages/LegalPage').then(m => ({ default: m.LegalPage })));
+const SitemapPage = lazy(() => import('./pages/SitemapPage').then(m => ({ default: m.SitemapPage })));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then(m => ({ default: m.NotFoundPage })));
+
+// Lazy-loaded modal to avoid loading modal code and confetti in the critical initial path
+const QuickOrderModal = lazy(() => import('./components/QuickOrderModal').then(m => ({ default: m.QuickOrderModal })));
 
 // Data Lookups
 import { getServiceBySlug } from './data/allServices';
 import { getBlogBySlug } from './data/blogData';
+
+// Lightweight fallback placeholder for secondary route navigation
+const PageFallback = () => (
+  <div className="min-h-[60vh] flex items-center justify-center">
+    <div className="w-8 h-8 rounded-full border-2 border-[#2DA44E] border-t-transparent animate-spin" />
+  </div>
+);
 
 export default function App() {
   const { route, pathname } = useAppRouter();
@@ -50,56 +61,112 @@ export default function App() {
         return <HomePage onOpenOrderModal={handleOpenOrderModal} />;
 
       case 'accounts':
-        return <AccountsCategoryPage onOpenOrderModal={handleOpenOrderModal} />;
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <AccountsCategoryPage onOpenOrderModal={handleOpenOrderModal} />
+          </Suspense>
+        );
 
       case 'account-detail': {
         const service = getServiceBySlug(route.slug);
-        if (!service) return <NotFoundPage />;
-        return <ServiceDetailPage service={service} onOpenOrderModal={handleOpenOrderModal} />;
+        if (!service) return <Suspense fallback={<PageFallback />}><NotFoundPage /></Suspense>;
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <ServiceDetailPage service={service} onOpenOrderModal={handleOpenOrderModal} />
+          </Suspense>
+        );
       }
 
       case 'promotion':
-        return <PromotionCategoryPage onOpenOrderModal={handleOpenOrderModal} />;
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <PromotionCategoryPage onOpenOrderModal={handleOpenOrderModal} />
+          </Suspense>
+        );
 
       case 'promotion-detail': {
         const service = getServiceBySlug(route.slug);
-        if (!service) return <NotFoundPage />;
-        return <ServiceDetailPage service={service} onOpenOrderModal={handleOpenOrderModal} />;
+        if (!service) return <Suspense fallback={<PageFallback />}><NotFoundPage /></Suspense>;
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <ServiceDetailPage service={service} onOpenOrderModal={handleOpenOrderModal} />
+          </Suspense>
+        );
       }
 
       case 'blog':
-        return <BlogListPage />;
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <BlogListPage />
+          </Suspense>
+        );
 
       case 'blog-detail': {
         const post = getBlogBySlug(route.slug);
-        if (!post) return <NotFoundPage />;
-        return <BlogDetailPage post={post} onOpenOrderModal={handleOpenOrderModal} />;
+        if (!post) return <Suspense fallback={<PageFallback />}><NotFoundPage /></Suspense>;
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <BlogDetailPage post={post} onOpenOrderModal={handleOpenOrderModal} />
+          </Suspense>
+        );
       }
 
       case 'faq':
-        return <FaqPage />;
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <FaqPage />
+          </Suspense>
+        );
 
       case 'about':
-        return <AboutPage />;
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <AboutPage />
+          </Suspense>
+        );
 
       case 'contact':
-        return <ContactPage />;
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <ContactPage />
+          </Suspense>
+        );
 
       case 'checkout':
-        return <CheckoutPage initialServiceId={route.serviceId} />;
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <CheckoutPage initialServiceId={route.serviceId} />
+          </Suspense>
+        );
 
       case 'payment-methods':
-        return <PaymentMethodsPage onOpenOrderModal={handleOpenOrderModal} />;
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <PaymentMethodsPage onOpenOrderModal={handleOpenOrderModal} />
+          </Suspense>
+        );
 
       case 'legal':
-        return <LegalPage legalSlug={route.legalSlug} />;
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <LegalPage legalSlug={route.legalSlug} />
+          </Suspense>
+        );
 
       case 'sitemap':
-        return <SitemapPage />;
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <SitemapPage />
+          </Suspense>
+        );
 
       case 'not-found':
       default:
-        return <NotFoundPage />;
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <NotFoundPage />
+          </Suspense>
+        );
     }
   };
 
@@ -119,12 +186,16 @@ export default function App() {
       {/* Global Footer */}
       <Footer />
 
-      {/* Global Quick Order / Checkout Modal */}
-      <QuickOrderModal
-        isOpen={isOrderModalOpen}
-        onClose={handleCloseOrderModal}
-        preselectedServiceId={selectedServiceForOrder}
-      />
+      {/* Global Quick Order / Checkout Modal (loaded only when triggered) */}
+      {isOrderModalOpen && (
+        <Suspense fallback={null}>
+          <QuickOrderModal
+            isOpen={isOrderModalOpen}
+            onClose={handleCloseOrderModal}
+            preselectedServiceId={selectedServiceForOrder}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }

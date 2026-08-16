@@ -86,6 +86,7 @@ export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
           {query && (
             <button
               onClick={() => setQuery('')}
+              aria-label="Clear search input"
               className="text-xs text-[#57606A] hover:text-[#24292F] p-1"
             >
               Clear
@@ -93,6 +94,7 @@ export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
           )}
           <button
             onClick={onClose}
+            aria-label="Close search modal"
             className="text-[#57606A] hover:text-[#24292F] p-1 rounded-md"
           >
             <X className="w-5 h-5" />

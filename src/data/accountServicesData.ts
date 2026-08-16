@@ -12,8 +12,8 @@ export const accountServices: ServiceItem[] = [
     priceUnit: 'per account',
     shortDescription: 'Freshly registered GitHub accounts with verified email addresses, ideal for clean testing environments, fresh development setups, and staging workflows.',
     heroHeadline: 'Buy New GitHub Accounts — Clean, Freshly Verified Developer Accounts',
-    metaTitle: 'Buy New GitHub Accounts | $5 Clean Verified Accounts — BuyGitHubAccounts.com',
-    metaDescription: 'Purchase clean, newly registered GitHub accounts with verified email access for $5 each. Ideal for developer testing, automated pipeline sandboxes, and development workflows.',
+    metaTitle: 'Buy New GitHub Accounts | $5 Clean Verified Accounts',
+    metaDescription: 'Buy clean, newly registered GitHub accounts with full email access for $5 each. Instant crypto checkout, 48h guarantee, and fast delivery. Order online today.',
     primaryKeyword: 'buy new github accounts',
     secondaryKeywords: ['new github accounts for sale', 'fresh github account', 'buy cheap github accounts', 'clean github account verified'],
     pricingTiers: [
