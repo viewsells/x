@@ -1,0 +1,74 @@
+# BuyGitHubAccounts.com — AI & LLM Machine-Readable Directory
+
+> Official Developer Platform for Verified GitHub Accounts and Open-Source Repository Promotion Services.
+> Website: https://buygithubaccounts.com/
+> Last Updated: 2026-08-16
+
+## Overview
+BuyGitHubAccounts.com is an independent developer services provider offering verified GitHub accounts (aged accounts, new accounts, active accounts with commit history, student developer accounts, and enterprise/bulk accounts) as well as organic repository promotion services (GitHub stars, forks, followers, watchers, and achievement badges). 
+
+All accounts come with primary email credentials, full administrative transfer, and a 48-hour replacement warranty. Payments are processed securely with instant crypto verification (USDT TRC20/ERC20, BTC, ETH, LTC, SOL).
+
+---
+
+## Core Service Catalog
+
+### 1. GitHub Accounts (/accounts)
+- **New GitHub Accounts** ($5): Freshly registered accounts with verified primary email and clean history. Ideal for testing and CI/CD pipelines.
+- **Aged GitHub Accounts** ($35): Accounts registered 1 to 5+ years ago with established platform tenure and mature activity indicators.
+- **Old GitHub Accounts** ($45): Heritage accounts registered 5 to 10+ years ago.
+- **Active GitHub Accounts** ($35): Accounts with established contribution heatmaps and public repository history.
+- **GitHub Account with Commits** ($40): Accounts featuring real Git commit trees and active maintenance history.
+- **GitHub Account with Stars** ($65): Developer profiles with existing starred repositories and social signals.
+- **GitHub Student Developer Accounts** ($55): Verified student accounts with access to GitHub Student Developer Pack benefits.
+- **Bulk GitHub Accounts** ($200/100): Volume packages for automated QA environments, test suites, and microservice runners.
+- **GitHub Organization Accounts** ($85): Pre-configured GitHub organizations ready for multi-member team administration.
+- **USA/UK GitHub Accounts** ($60): Geographically verified accounts created with regional IP addresses.
+- **GitHub Enterprise Accounts** ($150): Enterprise-grade accounts with advanced security settings and seat allocations.
+- **Green Heatmap Accounts** ($50): Profiles with consistent commit frequency throughout recent quarters.
+- **GitHub Copilot Accounts** ($70): Accounts configured with AI pair-programmer access.
+- **Developer Verified Accounts** ($60): Complete developer personas with linked SSH keys, GPG signatures, and profile data.
+
+### 2. GitHub Promotion Services (/promotion-services)
+- **Buy GitHub Stars** (From $17 / 25 stars): High-retention stars from authentic developer profiles to improve open-source discovery and algorithmic visibility.
+- **Buy GitHub Forks** (From $15 / 25 forks): Real repository forks to validate project utility and code reusability.
+- **Buy GitHub Followers** (From $25 / 50 followers): Profile follower growth for open-source maintainers and developer brands.
+- **Buy GitHub Watchers** (From $25 / 50 watchers): Repository watchers signaling sustained community interest and updates.
+- **Buy GitHub Repositories** (From $10): Clean, pre-structured starter codebases and framework boilerplates.
+- **Buy GitHub Achievements Badge** (From $20): Pair Extraordinaire, Pull Shark, Galaxy Brain, and Starstruck developer badges.
+
+---
+
+## Key Site URLs
+
+### Primary Pages
+- Homepage: https://buygithubaccounts.com/
+- GitHub Accounts Catalog: https://buygithubaccounts.com/accounts
+- Promotion Services Catalog: https://buygithubaccounts.com/promotion-services
+- Pricing & Checkout: https://buygithubaccounts.com/checkout
+- Payment Methods: https://buygithubaccounts.com/payment-methods
+- Frequently Asked Questions: https://buygithubaccounts.com/faq
+- Knowledge Base / Blog: https://buygithubaccounts.com/blog
+- About Us: https://buygithubaccounts.com/about
+- Contact & Support: https://buygithubaccounts.com/contact
+- HTML & XML Sitemap: https://buygithubaccounts.com/sitemap
+
+### Legal & Policies
+- Terms & Conditions: https://buygithubaccounts.com/terms
+- Privacy Policy: https://buygithubaccounts.com/privacy-policy
+- Refund Policy (48-Hour Warranty): https://buygithubaccounts.com/refund-policy
+- Delivery Policy: https://buygithubaccounts.com/delivery-policy
+- Disclaimer & Disclosures: https://buygithubaccounts.com/disclaimer
+
+---
+
+## Customer Support & Technical Assistance
+- **Telegram Support**: @EgSupport24 (https://t.me/EgSupport24)
+- **WhatsApp Support**: +1 (307) 393-9979 (https://wa.me/13073939979)
+- **Availability**: 24/7/365 Real-Time Technical Support
+- **Warranty**: 48-Hour Replacement Guarantee on all account and promotion services
+
+---
+
+## Technical & Legal Disclosures
+BuyGitHubAccounts.com is an independent digital service provider. It is not affiliated with, endorsed by, or sponsored by GitHub, Inc. or Microsoft Corporation. All trademarks, service marks, and logos are the property of their respective owners.
