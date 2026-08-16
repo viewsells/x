@@ -83,28 +83,32 @@ Please confirm payment details. Thank you!`;
     const priceNum = parseFloat(String(selectedTier.price).replace(/[^0-9.]/g, '')) || 5;
     const isEmail = customerContact.includes('@');
 
-    sendOrderNotification({
-      orderId: generatedOrderId,
-      orderDate: nowStr,
-      customerName: 'Quick Order Customer',
-      billingEmail: isEmail ? customerContact.trim() : '',
-      country: 'Global',
-      contactChannel: isEmail ? 'email' : customerContact.startsWith('+') ? 'whatsapp' : 'telegram',
-      contactHandle: customerContact.trim(),
-      targetUrl: notes.trim(),
-      deliveryFormat: 'text',
-      orderNotes: notes.trim(),
-      serviceName: currentService.name,
-      serviceId: currentService.id,
-      tierLabel: selectedTier.label || String(selectedTier.quantity),
-      quantity: 1,
-      subtotal: priceNum,
-      totalUsd: priceNum,
-      paymentMethod: selectedWallet.name,
-      cryptoAmount: (priceNum / selectedWallet.estRateUsd).toFixed(selectedWallet.decimals),
-      cryptoSymbol: selectedWallet.symbol,
-      depositWalletAddress: selectedWallet.address,
-    }).catch((err) => console.warn('Quick order email dispatch:', err));
+    try {
+      await sendOrderNotification({
+        orderId: generatedOrderId,
+        orderDate: nowStr,
+        customerName: 'Quick Order Customer',
+        billingEmail: isEmail ? customerContact.trim() : '',
+        country: 'Global',
+        contactChannel: isEmail ? 'email' : customerContact.startsWith('+') ? 'whatsapp' : 'telegram',
+        contactHandle: customerContact.trim(),
+        targetUrl: notes.trim(),
+        deliveryFormat: 'text',
+        orderNotes: notes.trim(),
+        serviceName: currentService.name,
+        serviceId: currentService.id,
+        tierLabel: selectedTier.label || String(selectedTier.quantity),
+        quantity: 1,
+        subtotal: priceNum,
+        totalUsd: priceNum,
+        paymentMethod: selectedWallet.name,
+        cryptoAmount: (priceNum / selectedWallet.estRateUsd).toFixed(selectedWallet.decimals),
+        cryptoSymbol: selectedWallet.symbol,
+        depositWalletAddress: selectedWallet.address,
+      });
+    } catch (err) {
+      console.warn('Quick order email dispatch error:', err);
+    }
 
     try {
       const confettiModule = await import('canvas-confetti');

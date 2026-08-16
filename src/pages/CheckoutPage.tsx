@@ -151,7 +151,7 @@ export const CheckoutPage = ({ initialServiceId }: CheckoutPageProps) => {
     setTimeout(() => setCopiedAddress(false), 2200);
   };
 
-  const handlePlaceOrder = (e: FormEvent) => {
+  const handlePlaceOrder = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!agreeTerms) {
@@ -174,49 +174,51 @@ export const CheckoutPage = ({ initialServiceId }: CheckoutPageProps) => {
     });
 
     // Send Admin Notification to smmbuy2022@gmail.com and Customer Confirmation Email
-    sendOrderNotification({
-      orderId: generatedOrderId,
-      orderDate: nowStr,
-      customerName: `${firstName} ${lastName}`.trim() || 'Valued Developer',
-      billingEmail: billingEmail.trim(),
-      country,
-      contactChannel,
-      contactHandle: contactHandle.trim(),
-      targetUrl: targetUrl.trim(),
-      deliveryFormat,
-      orderNotes: orderNotes.trim(),
-      serviceName: currentService.name,
-      serviceId: currentService.id,
-      tierLabel: selectedTier.label || String(selectedTier.quantity),
-      quantity: quantityMultiplier,
-      subtotal: rawSubtotal,
-      discountCode: appliedDiscount?.code,
-      discountAmount: discountAmount,
-      totalUsd: finalTotalUsd,
-      paymentMethod: selectedWallet.name,
-      cryptoAmount: cryptoTotal,
-      cryptoSymbol: selectedWallet.symbol,
-      depositWalletAddress: selectedWallet.address,
-      txHash: txHash.trim(),
-    }).catch((err) => console.warn('Order email dispatch notice:', err));
+    try {
+      await sendOrderNotification({
+        orderId: generatedOrderId,
+        orderDate: nowStr,
+        customerName: `${firstName} ${lastName}`.trim() || 'Valued Developer',
+        billingEmail: billingEmail.trim(),
+        country,
+        contactChannel,
+        contactHandle: contactHandle.trim(),
+        targetUrl: targetUrl.trim(),
+        deliveryFormat,
+        orderNotes: orderNotes.trim(),
+        serviceName: currentService.name,
+        serviceId: currentService.id,
+        tierLabel: selectedTier.label || String(selectedTier.quantity),
+        quantity: quantityMultiplier,
+        subtotal: rawSubtotal,
+        discountCode: appliedDiscount?.code,
+        discountAmount: discountAmount,
+        totalUsd: finalTotalUsd,
+        paymentMethod: selectedWallet.name,
+        cryptoAmount: cryptoTotal,
+        cryptoSymbol: selectedWallet.symbol,
+        depositWalletAddress: selectedWallet.address,
+        txHash: txHash.trim(),
+      });
+    } catch (err) {
+      console.warn('Order email dispatch notice:', err);
+    }
 
-    setTimeout(() => {
-      setOrderId(generatedOrderId);
-      setOrderDate(nowStr);
-      setIsSubmitting(false);
-      setIsOrderPlaced(true);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    setOrderId(generatedOrderId);
+    setOrderDate(nowStr);
+    setIsSubmitting(false);
+    setIsOrderPlaced(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
-      try {
-        confetti({
-          particleCount: 80,
-          spread: 70,
-          origin: { y: 0.6 }
-        });
-      } catch (err) {
-        // Safe fallback
-      }
-    }, 600);
+    try {
+      confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    } catch (err) {
+      // Safe fallback
+    }
   };
 
   const orderManifestText = `================================================

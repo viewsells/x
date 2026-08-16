@@ -17,17 +17,21 @@ export const ContactPage = () => {
   });
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
 
-    sendContactInquiry({
-      name: formData.name.trim(),
-      contactHandle: formData.contactHandle.trim(),
-      channel: formData.channel,
-      service: formData.service,
-      message: formData.message.trim(),
-    }).catch((err) => console.warn('Contact inquiry email dispatch:', err));
+    try {
+      await sendContactInquiry({
+        name: formData.name.trim(),
+        contactHandle: formData.contactHandle.trim(),
+        channel: formData.channel,
+        service: formData.service,
+        message: formData.message.trim(),
+      });
+    } catch (err) {
+      console.warn('Contact inquiry email dispatch error:', err);
+    }
 
     confetti({
       particleCount: 70,
